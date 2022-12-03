@@ -15,11 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [ViewsController::class, 'viewHome'])->name('home');
 
-//Route to load a page createCliente
-Route::get('/createClient', [ViewsController::class, 'viewCreateClient'])->name('viewCreateClient');
+//Route to load a page createClient
+Route::get('/cadastrar', [ViewsController::class, 'viewCreate'])->name('viewCreateClient');
 //Route to register data of cliente in the data base
-Route::post('/createClient', [ClienteController::class, 'createClient'])->name('createClient');
+Route::post('/cadastrar', [ClienteController::class, 'createClient'])->name('createClient');
+
+//Route to load a page readClient
+Route::get('/listar', [ClienteController::class, 'readClient'])->name('readClient');
+
+//Route to load a page of the editClient
+Route::get('/editar/{id}', [ViewsController::class, 'editClient'])->name('viewEditClient');
+//Route to update client in database
+Route::put('/update/{id}', [ClienteController::class, 'updateClient'])->name('updateClient');
+
+//Route to delete client in database
+Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('deleteUser');
